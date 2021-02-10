@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="es")
+    head
+        include partials/header
+    body.login
+    
+        .contenedor-formulario
+            h1 Iniciar sesión  
+
+            if locals.mensajes
+                .alertas
+                    each categoria in Object.keys(locals.mensajes)
+                        each error in mensajes[categoria]
+                            .alerta(class=`${categoria}`)
+                                p= error
+                  
+            form#formulario.caja.caja-login(method="POST" action="/iniciar-sesion")
+                pre= vardump(errores)
+                .campo
+                    label(for="email") Correo electronico:
+                    input(type="email" name="email" placeholder="Tu correo" value= email)
+                .campo
+                    label(for="password") Contraseña:
+                    input(type="password" name="password" placeholder="Tu contraseña")
+                .campo.enviar
+                    input.boton(type="submit" value="Iniciar sesión")
+                .campo.acciones
+                    a(href="/crear-cuenta") ¿Aún no tiene una cuenta Teslera? Crea una ahora.
+                    a(href="/restablecer-clave") ¿Olvidaste tu contraseña?

@@ -1,0 +1,13 @@
+extends layout
+block contenido
+    .contenido-principal
+        h1 #{nombrePagina}
+
+        .panel.lista-proyectos
+            h2 Proyectos
+            ul#proyectos.proyectos
+                //- pre= vardump(proyectosObtenidos)
+                if(proyectosObtenidos.length)
+                    each proyecto in proyectosObtenidos
+                        li 
+                            a(href=`/proyectos/${proyecto.url}`)= proyecto.nombre

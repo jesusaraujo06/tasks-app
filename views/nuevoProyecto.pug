@@ -1,0 +1,19 @@
+extends layout
+
+//- Incluimos el mixin que tiene el formulario para crear y editar un proyecto
+include mixins/crear-editarProyecto
+
+block contenido
+    .contenido-principal
+        h1 #{nombrePagina}
+
+        //- pre= vardump(contenidoDelProyecto)
+
+        if errores
+            each error in errores
+                .alerta #{error.texto}
+        
+        //- Llamamos al mixin,
+        +crearProyecto(contenidoDelProyecto)
+
+        

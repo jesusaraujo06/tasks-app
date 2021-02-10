@@ -1,0 +1,10 @@
+
+//- Si contenidoDelProyecto viene vacio entonces pug/mixin lo define como un objeto vacio
+mixin crearProyecto(contenidoDelProyecto = {})
+
+    form.agregar-proyecto(action=`/nuevo-proyecto/${contenidoDelProyecto.id ? contenidoDelProyecto.id : ''}` method="POST")
+                .campo
+                    label(for="nombre") Nombre del proyecto:
+                    input(type="text" value=contenidoDelProyecto.nombre id="nombre" name="nombre" placeholder="Nombre del proyecto")
+                .campo.enviar
+                    input(type="submit" value=`${contenidoDelProyecto.nombre ? 'Actualizar' : 'Agregar'}` class="boton")

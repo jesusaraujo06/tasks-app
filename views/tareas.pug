@@ -1,0 +1,57 @@
+//- Ojo en pug no se utiliza punto y coma =  ;
+
+extends layout
+block contenido
+    .container.py-5
+        .row
+            .col
+
+                
+                h2.mb-5 #{contenidoDelProyecto.nombre}
+
+                form.mb-5(action=`/proyectos/${contenidoDelProyecto.url}` method="POST")
+                    //- label.form-label(for='') Nueva tarea
+                    h5.mb-4 Nueva tarea
+                    .input-group.mb-3
+                        input.form-control(type='text' name='tarea' placeholder="Nueva tarea" aria-label="Nueva tarea" aria-describedby='button-addon2')
+                        button#button-addon2.btn.btn-primary.nueva-tarea(type='submit') Agregar
+                
+                h5.mb-4 Lista de tareas
+                .listado-tareas
+                    ul.list-group
+                        if tareas.length 
+                            each tarea in tareas 
+                                li.tarea-proyecto.list-group-item.d-flex.justify-content-between(data-tarea=tarea.id) #{tarea.tarea}
+                                    .acciones-tareas
+                                        if !tarea.estado
+                                            i.far.fa-check-circle.px-2
+                                        else 
+                                            i.far.fa-check-circle.px-2.completo
+                                        i.fas.fa-trash
+                        else 
+                            p No hay actividades
+
+                //- Avance del proyecto
+                .avance
+                    h2 Avance del proyecto
+                    #barra-avance.barra-avance
+                        #porcentaje.porcentaje
+
+                .contenedor-acciones
+                    a(href=`/proyecto/editar/${contenidoDelProyecto.id}` class="boton") Editar proyecto
+                    button#eliminar-proyecto(data-proyecto-url=contenidoDelProyecto.url type="button" class="boton eliminar") Eliminar proyecto
+
+            .col
+                h1 Copia y pega tus actividades en WhatsApp
+                button#botonCopiar.boton.nueva-tarea(data-clipboard-target="#listadoWpp") COPIAR ACTIVIDADES
+
+                .listado-para-wpp#listadoWpp
+                    p *Actividades realizadas ✅*
+                    
+                    if tareas.length
+                        each tarea in tareas
+                            
+                            p.sinEspacios= `- ` + tarea.tarea
+                                    
+                    else
+                        p No hay tareas en este proyecto
